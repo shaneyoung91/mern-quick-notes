@@ -1,13 +1,13 @@
-const Note = require('../../models/user');
+const Note = require('../../models/note');
 
 module.exports = {
-    create,
+    createNote,
 }
 
-async function create(req, res) {
+async function createNote(req, res) {
     try {
-        const note = await Note.create(req.body)
+        const note = await Note.create({text: req.body.text, user: req.user})
     } catch (err) {
-        res.status(500).json(err);
+        res.status(400).json(err);
     }
 }

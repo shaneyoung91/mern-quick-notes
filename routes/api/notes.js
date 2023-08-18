@@ -5,4 +5,6 @@ const notesCtrl = require('../../controllers/api/notes');
 // All paths start with '/api/notes'
 
 // POST /api/notes (create a note)
-router.post('/', notesCtrl.create);
+router.post('/new', notesCtrl.createNote);
+
+module.exports = router;

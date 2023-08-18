@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { createNote }from '../../utilities/notes-api'
 
-export default function NewNoteForm({ addNote }) {
-    const [formData, setFormData] = useState({
-        text: "",
-    });
-    
-    function handleAddNote(evt) {
+export default function NewNoteForm({ addNote, notes }) {
+    const [formData, setFormData] = useState('')
+
+    async function handleAddNote(evt) {
         evt.preventDefault();
-        addNote(formData)
-        setFormData({ text: "" });
+        const savedNote = await createNote(formData)
+        addNote(formData);
+        setFormData('')
     }
 
     function handleChange(evt) {
@@ -18,8 +18,8 @@ export default function NewNoteForm({ addNote }) {
 
     return (
         <>
-            <form onSubmit={handleAddNote}>
-                <input placeholder="Enter your note here" name="text" value={formData.text} onChange={handleChange}></input>
+            <form autoComplete="off" onSubmit={handleAddNote}>
+                <input placeholder="Enter your note here" name='note' value={formData} onChange={handleChange} required ></input>
                 <button type="submit">ADD NOTE</button>
             </form>
         </>
